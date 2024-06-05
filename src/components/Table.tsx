@@ -1,5 +1,6 @@
 import React from 'react'
 import {Button} from "@nextui-org/react";
+import {ButtonGroup} from "@nextui-org/button";
 interface FilterProps {
     name: string;
     icon?: React.ReactNode;
@@ -21,33 +22,18 @@ export interface TableRow {
 }
 
 
-export default function Table({columns, data, filters}: TableProps) {
+export default function Table({columns, data}: TableProps) {
     return (
-        <div>
             <div className="w-full">
-                <div className="w-full flex">
-                    {
-                        filters && filters.map((filter, index) => (
-                            <Button
-                                color="primary"
-                                key={index}
-                                startContent={filter.icon}
-                                variant={'bordered'}
-                                className={'flex'}>
-                                {filter.name}
-                            </Button>
-                        ))
-                    }
-                </div>
-                <table className="w-full px-4">
-                    <thead>
+                <table className="w-full px-4 border-primary border-1 mt-4">
+                    <thead className={'border-primary border-1'}>
                         <tr className=" bg-darkViolet h-8">
                             {columns.map((column,index) => (
                                 <th key={index} className={`${column.width} text-left px-8`}>{column.title}</th>
                             ))}
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody >
                         {data.map((row, index) => (
                             <tr key={index} className="h-9">
 
@@ -69,7 +55,6 @@ export default function Table({columns, data, filters}: TableProps) {
                         ))}
                     </tbody>
                 </table>
-            </div>
         </div>
     )
 }
