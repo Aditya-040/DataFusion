@@ -1,32 +1,35 @@
 'use client';
-import Image from "next/image";
 import { usePathname } from 'next/navigation';
-
-
+import { GrCatalog } from "react-icons/gr";
+import { CiCreditCard1 } from "react-icons/ci";
+import { CiCalendarDate } from "react-icons/ci";
+import { CiUser } from "react-icons/ci";
+import { LuPackage } from "react-icons/lu";
 export default function Aside() {
     //get the current route
     const currentRoute = usePathname()
     const routes = [
-        {route: '/home/catalog', icon: 'Dashboard.svg', name: 'Catalog'},
-        {route: '/home/orders', icon: 'Dashboard.svg', name: 'Orders'},
-        {route: '/home/customers', icon: 'Dashboard.svg', name: 'Customers'},
-        {route: '/home/subscription', icon: 'Dashboard.svg', name: 'Subscription'}
+        {route: '/home/catalog', icon: <GrCatalog />, name: 'Catalog'},
+        {route: '/home/orders', icon: <LuPackage/>, name: 'Orders'},
+        {route: '/home/customers', icon: <CiUser/>, name: 'Customers'},
+        {route: '/home/subscription', icon: <CiCreditCard1/>, name: 'Subscriptions'},
+        {route: '/home/appointments', icon: <CiCalendarDate/>, name: 'Appointments'}
+
     ]
     return <aside className="w-48 bg-customGradient p-1">
-        <a className="flex mt-4 p-x-1.5 justify-center" href={'/home/dashboard'}>
-            <span className={'text-primarySmall text-base font-medium'}>Data fusion</span>
-        </a>
-
         <div className="flex flex-col mt-16 ml-10 gap-3">
             {routes.map((route, index) => (
-                <a
-                    className={`btn-dashboard ${
-                        currentRoute === route.route ? ' text-primarySmall' : ''
-                    }`}
-                    href={route.route}
-                    key={index}>
-                    {route.name}
-                </a>
+                <div className="flex gap-3">
+                    <span className={'text-primarySmall'}>{route.icon}</span>
+                    <a
+                        className={`btn-dashboard ${
+                            currentRoute === route.route ? ' text-primary' : ''
+                        }`}
+                        href={route.route}
+                        key={index}>
+                        {route.name}
+                    </a>
+                </div>
             ))}
         </div>
 

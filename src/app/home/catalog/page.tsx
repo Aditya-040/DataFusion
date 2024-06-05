@@ -1,8 +1,10 @@
-import Header from "@/components/Header";
 import React from "react";
 import {Modal, ModalContent, ModalHeader, ModalBody} from "@nextui-org/react";
-import CatalogTable from "@/app/home/catalog/MaterialTable";
 import {getCatalog} from "@/services/catalog";
+import {AiFillDatabase} from "react-icons/ai";
+import {IoIosStar} from "react-icons/io";
+import {FaChartSimple} from "react-icons/fa6";
+import Table from "@/components/Table";
 
 
 export default async function Materials({searchParams}: any ) {
@@ -22,9 +24,31 @@ export default async function Materials({searchParams}: any ) {
                     </ModalBody>
                 </ModalContent>
             </Modal>
-            <Header title={''} subtitle={''}/>
             <div>
-                <CatalogTable data={data}/>
+                <Table
+                    title={''}
+                    filters={[
+                        {
+                            name: 'Data',
+                            icon: <AiFillDatabase/>
+                        },
+                        {
+                            name: 'Popular',
+                            icon: <IoIosStar/>
+                        },
+                        {
+                            name: 'Charts & Insights',
+                            icon: <FaChartSimple/>
+                        },
+                    ]}
+                    columns={[
+                        {title: 'Name', key: 'name', width: 'w-[50p]'},
+                        {title: 'Most popular w/Ages', key: 'ages', width: 'w-[50p]'},
+                        {title: 'Total Number Sold', key: 'sold', width: 'w-[50p]'},
+                        {title: 'Total Sales', key: 'sold', width: 'w-[50p]'},
+                    ]}
+                    data={data || []}
+                />
             </div>
         </main>
     )

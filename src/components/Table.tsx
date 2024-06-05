@@ -1,11 +1,15 @@
-import Image from 'next/image'
 import React from 'react'
-
+import {Button} from "@nextui-org/react";
+interface FilterProps {
+    name: string;
+    icon?: React.ReactNode;
+}
 export interface TableProps {
   title: string
   columns: TableColumn[];
   data: TableRow[];
   rowUrl?: string;
+  filters?: FilterProps[];
 }
 export interface TableColumn {
   key: string;
@@ -17,13 +21,24 @@ export interface TableRow {
 }
 
 
-export default function Table({title, columns, data}: TableProps) {
+export default function Table({columns, data, filters}: TableProps) {
     return (
         <div>
-            <div className='w-full flex justify-between items-center gap-4 py-3 px-7'>
-                <p>{title}</p>
-            </div>
             <div className="w-full">
+                <div className="w-full flex">
+                    {
+                        filters && filters.map((filter, index) => (
+                            <Button
+                                color="primary"
+                                key={index}
+                                startContent={filter.icon}
+                                variant={'bordered'}
+                                className={'flex'}>
+                                {filter.name}
+                            </Button>
+                        ))
+                    }
+                </div>
                 <table className="w-full px-4">
                     <thead>
                         <tr className=" bg-darkViolet h-8">

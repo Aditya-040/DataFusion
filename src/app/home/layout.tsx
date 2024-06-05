@@ -1,10 +1,11 @@
 import type { Metadata } from 'next'
 import Aside from "@/components/Aside";
 import React from "react";
+import Header from "@/components/Header";
 
 export const metadata: Metadata = {
-    title: 'Enterprise Chai',
-    description: 'Enterprise Chai',
+    title: 'Data fusion',
+    description: 'Data fusion',
 }
 export default function RootLayout({
     children
@@ -14,7 +15,9 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body>
-                <div className="flex h-screen">
+            <Header/>
+            <div className="flex h-screen">
+
                     <Aside />
                     {children}
                 </div>
