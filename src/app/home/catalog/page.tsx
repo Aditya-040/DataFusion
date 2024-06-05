@@ -66,9 +66,8 @@ export default async function Materials({searchParams}: any ) {
             <Table
                 columns={[
                     {title: 'Name', key: 'name', width: 'w-[50p]'},
-                    {title: 'Most popular w/Ages', key: 'ages', width: 'w-[50p]'},
-                    {title: 'Total Number Sold', key: 'sold', width: 'w-[50p]'},
-                    {title: 'Total Sales', key: 'total', width: 'w-[50p]'},
+                    {title: 'Price', key: 'price', width: 'w-[25p]'},
+                    {title: 'Description', key: 'description', width: 'w-[25p]'},
                 ]}
                 data={data || []}
             />
