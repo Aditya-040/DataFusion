@@ -4,18 +4,27 @@ import {getCatalog} from "@/services/catalog";
 import {AiFillDatabase} from "react-icons/ai";
 import {IoIosStar} from "react-icons/io";
 import {FaChartSimple} from "react-icons/fa6";
-import Table from "@/components/Table";
+import { ImMagicWand } from "react-icons/im";
 import {ButtonGroup} from "@nextui-org/button";
 import { CiCirclePlus } from "react-icons/ci";
 import {ProductFom} from "@/app/home/catalog/ProductFom";
 import CatalogTable from "@/app/home/catalog/CatalogTable";
 import CatalogChats from "@/app/home/catalog/CatalogChatrs";
 import {ChartFom} from "@/app/home/catalog/ChartFom";
+import { FaLongArrowAltLeft } from "react-icons/fa";
+import {Textarea} from "@nextui-org/input";
 
 export default async function Materials({searchParams}: any ) {
     const action = searchParams.action;
+    const product = searchParams.product;
+    console.log(product)
 
-    const data = await getCatalog();
+    const data = (await getCatalog()).map((item) => {
+        return {
+            ...item,
+            tools: <a href={`/home/catalog?product=${item.id}`}><ImMagicWand/></a>
+        }
+    })
     const filters=[
         {
             name: 'Data',
@@ -35,6 +44,21 @@ export default async function Materials({searchParams}: any ) {
     ]
     return (
         <main className="w-full px-9">
+
+                <Modal
+                    isOpen={product !== undefined}
+                    closeButton={<a href={'/home/catalog'}>X</a>}
+                >
+                  <ModalContent>
+                    <ModalHeader className="flex flex-col gap-1 text-black">
+                      You can ask anything like, "add more emojis", or "change the color"
+                    </ModalHeader>
+                    <ModalBody>
+                        <Textarea placeholder="Type your message here" />
+                    </ModalBody>
+                  </ModalContent>
+                </Modal>
+
             <Modal
                 isOpen={action === 'new'}
                 closeButton={<a href={'/home/catalog'}>X</a>}
@@ -51,7 +75,7 @@ export default async function Materials({searchParams}: any ) {
             <Modal
                 isOpen={action === 'new_chart'}
                 size={'lg'}
-                closeButton={<a href={'/home/charts'}>X</a>}
+                closeButton={<a href={'/home/catalog?action=charts'}>X</a>}
             >
                 <ModalContent>
                     <ModalHeader className="flex flex-col gap-1 text-black">

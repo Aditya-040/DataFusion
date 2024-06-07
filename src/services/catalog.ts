@@ -2,7 +2,7 @@
 import {z} from "zod";
 import {redirect} from "next/navigation";
 
-export const getCatalog = async () => {
+export const getCatalog  = async () => {
     //mock data
     return [
         { id: 1, name: 'Product 1', price: 100, description: 'Description 1' },
