@@ -1,3 +1,4 @@
+
 import React from "react";
 import {Modal, ModalContent, ModalHeader, ModalBody, Button} from "@nextui-org/react";
 import {getCatalog} from "@/services/catalog";
@@ -9,12 +10,14 @@ import {ButtonGroup} from "@nextui-org/button";
 import { CiCirclePlus } from "react-icons/ci";
 import {ProductFom} from "@/app/home/catalog/ProductFom";
 import CatalogTable from "@/app/home/catalog/CatalogTable";
-import CatalogChats from "@/app/home/catalog/CatalogChatrs";
+import CatalogCharts from "@/app/home/catalog/CatalogChatrs";
 import {ChartFom} from "@/app/home/catalog/ChartFom";
 import { FaLongArrowAltLeft } from "react-icons/fa";
 import {Textarea} from "@nextui-org/input";
 
 export default async function Materials({searchParams}: any ) {
+
+
     const action = searchParams.action;
     const product = searchParams.product;
     console.log(product)
@@ -22,7 +25,14 @@ export default async function Materials({searchParams}: any ) {
     const data = (await getCatalog()).map((item) => {
         return {
             ...item,
-            tools: <a href={`/home/catalog?product=${item.id}`}><ImMagicWand/></a>
+            tools: <div className={'relative'}>
+                <a href={`/home/catalog?product=${item.id}`}><ImMagicWand/></a>
+                {
+                    product == item.id && <div className={'absolute border-primary border-1 w-96 h-25 right-0 p-3'}>
+                    <p>You can ask anything like, "add more emojis", or "change the color"</p>
+                    <Textarea placeholder="Type your message here" />
+                </div>}
+            </div>
         }
     })
     const filters=[
@@ -42,23 +52,11 @@ export default async function Materials({searchParams}: any ) {
             url: '/home/catalog?action=charts'
         },
     ]
+    const onSave = (data: any) => {
+        console.log(data)
+    }
     return (
         <main className="w-full px-9">
-
-                <Modal
-                    isOpen={product !== undefined}
-                    closeButton={<a href={'/home/catalog'}>X</a>}
-                >
-                  <ModalContent>
-                    <ModalHeader className="flex flex-col gap-1 text-black">
-                      You can ask anything like, "add more emojis", or "change the color"
-                    </ModalHeader>
-                    <ModalBody>
-                        <Textarea placeholder="Type your message here" />
-                    </ModalBody>
-                  </ModalContent>
-                </Modal>
-
             <Modal
                 isOpen={action === 'new'}
                 closeButton={<a href={'/home/catalog'}>X</a>}
@@ -78,16 +76,16 @@ export default async function Materials({searchParams}: any ) {
                 closeButton={<a href={'/home/catalog?action=charts'}>X</a>}
             >
                 <ModalContent>
-                    <ModalHeader className="flex flex-col gap-1 text-black">
+                    <ModalHeader className="flex flex-col gap-1">
                         Generate Chart
-                        <small className={'text-slate-800'}>Automatically generate interactive financial store data charts from descriptions using Google Vertex AI</small>
+                        <small className={''}>Automatically generate interactive financial store data charts from descriptions using Google Vertex AI</small>
                     </ModalHeader>
                     <ModalBody>
-                        <ChartFom/>
+                        <ChartFom />
                     </ModalBody>
                 </ModalContent>
             </Modal>
-            <div className={'flex justify-between'}>
+            <div className={'flex justify-between mb-5'}>
                 <ButtonGroup>
                     {
                         filters && filters.map((filter, index) => (
@@ -117,7 +115,7 @@ export default async function Materials({searchParams}: any ) {
             </div>
             { action === undefined && <CatalogTable data={data}/>}
             { action === 'popular' && <CatalogTable data={data}/>}
-            { action === 'charts' && <CatalogChats/>}
+            { action === 'charts' && <CatalogCharts/>}
         </main>
     )
 }

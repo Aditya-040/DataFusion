@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import Aside from "@/components/Aside";
 import React from "react";
 import Header from "@/components/Header";
+import ReactDOM from "react-dom/client";
+import {NextUIProvider} from "@nextui-org/react";
 
 export const metadata: Metadata = {
     title: 'Data fusion',
@@ -13,8 +15,9 @@ export default function RootLayout({
     children: React.ReactNode
 }) {
     return (
+        <NextUIProvider>
         <html lang="en">
-            <body>
+            <body className="dark text-foreground bg-background">
             <Header/>
             <div className="flex h-screen">
 
@@ -23,5 +26,10 @@ export default function RootLayout({
                 </div>
             </body>
         </html>
+        </NextUIProvider>
+
     )
 }
+
+
+
