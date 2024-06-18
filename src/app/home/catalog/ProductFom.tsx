@@ -14,7 +14,7 @@ export const ProductFom = () => {
     const [filesName, setFilesName] = React.useState<any>('');
 
     return <form className={'flex flex-col gap-4'} action={formAction}>
-        <label className="text-gray-700">Title *</label>
+        <label className="">Title *</label>
         <input
             required
             type="text"
@@ -22,7 +22,7 @@ export const ProductFom = () => {
             name={'title'}
             placeholder="Product name"
         />
-        <label className="text-gray-700">Price</label>
+        <label className="">Price</label>
         <input
             required
             type="text"
@@ -30,7 +30,7 @@ export const ProductFom = () => {
             name={'price'}
             placeholder="Product price*"
         />
-        <label className="text-gray-700">Description</label>
+        <label className="">Description</label>
         <textarea
             required
             className="form-input mt-1 block w-full"

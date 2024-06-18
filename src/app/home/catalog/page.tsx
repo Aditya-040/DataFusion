@@ -14,6 +14,9 @@ import CatalogCharts from "@/app/home/catalog/CatalogChatrs";
 import {ChartFom} from "@/app/home/catalog/ChartFom";
 import { FaLongArrowAltLeft } from "react-icons/fa";
 import {Textarea} from "@nextui-org/input";
+import { FaRegCommentDots } from "react-icons/fa";
+import {Divider} from "@nextui-org/divider";
+import { IoMdArrowBack } from "react-icons/io";
 
 export default async function Materials({searchParams}: any ) {
 
@@ -24,13 +27,27 @@ export default async function Materials({searchParams}: any ) {
 
     const data = (await getCatalog()).map((item) => {
         return {
+            checkbox: <input type="checkbox"/>,
             ...item,
             tools: <div className={'relative'}>
                 <a href={`/home/catalog?product=${item.id}`}><ImMagicWand/></a>
                 {
-                    product == item.id && <div className={'absolute border-primary border-1 w-96 h-25 right-0 p-3'}>
-                    <p>You can ask anything like, &quot add more emojis&quot, or &quotchange the color&quot</p>
-                    <Textarea placeholder="Type your message here" />
+                    product == item.id && <div className={'absolute border-primary border-1 w-[540px] h-25 right-0 p-3  bg-slate-950 z-10'}>
+                    <p className={'flex gap-2'}><a href={`/home/catalog`}><IoMdArrowBack/></a>You can ask anything like, "add more emojis", or "change the color"</p>
+                  <div className={'flex m-1 mt-4 gap-3'}>
+                    <FaRegCommentDots/>
+                    <input placeholder={'Ask the AI anything'} className={'w-full'}/>
+                  </div>
+                  <Divider orientation={'horizontal'} />
+                    <p className={'my-2'}>Suggestions</p>
+                  <ul className={'flex flex-col gap-2'}>
+                      <li>Fix Grammar</li>
+                      <li>Improve writing</li>
+                      <li>Make it punchier</li>
+                        <li>Condense</li>
+                    <li>Mix it up</li>
+                    <li>Improve structure & spacing</li>
+                  </ul>
                 </div>}
             </div>
         }
@@ -62,7 +79,7 @@ export default async function Materials({searchParams}: any ) {
                 closeButton={<a href={'/home/catalog'}>X</a>}
             >
                 <ModalContent>
-                    <ModalHeader className="flex flex-col gap-1 text-black">
+                    <ModalHeader className="flex flex-col gap-1">
                         Create a new product
                     </ModalHeader>
                     <ModalBody>

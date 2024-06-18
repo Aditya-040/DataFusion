@@ -4,6 +4,7 @@ import React from "react";
 import Header from "@/components/Header";
 import ReactDOM from "react-dom/client";
 import {NextUIProvider} from "@nextui-org/react";
+import Providers from "@/app/providers";
 
 export const metadata: Metadata = {
     title: 'Data fusion',
@@ -15,18 +16,22 @@ export default function RootLayout({
     children: React.ReactNode
 }) {
     return (
-        <NextUIProvider>
-        <html lang="en">
-            <body className="dark text-foreground bg-background">
+        <html lang="en" className='dark'>
+
+        <body >
+        <Providers>
+
             <Header/>
             <div className="flex h-screen">
 
                     <Aside />
                     {children}
                 </div>
+        </Providers>
+
             </body>
+
         </html>
-        </NextUIProvider>
 
     )
 }
