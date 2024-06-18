@@ -29,7 +29,7 @@ export default async function Materials({searchParams}: any ) {
                 <a href={`/home/catalog?product=${item.id}`}><ImMagicWand/></a>
                 {
                     product == item.id && <div className={'absolute border-primary border-1 w-96 h-25 right-0 p-3'}>
-                    <p>You can ask anything like, "add more emojis", or "change the color"</p>
+                    <p>You can ask anything like, &quot add more emojis&quot, or &quotchange the color&quot</p>
                     <Textarea placeholder="Type your message here" />
                 </div>}
             </div>

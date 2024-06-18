@@ -19,7 +19,7 @@ export default function Aside() {
     return <aside className="w-48 bg-customGradient p-1">
         <div className="flex flex-col mt-16 ml-10 gap-3">
             {routes.map((route, index) => (
-                <div className="flex gap-3">
+                <div className="flex gap-3" key={`route-${index}`}>
                     <span className={'text-primarySmall'}>{route.icon}</span>
                     <a
                         className={`btn-dashboard ${
