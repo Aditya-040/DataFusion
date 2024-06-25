@@ -9,7 +9,7 @@ const initialState: any = {
     message: "",
 };
 
-export const ProductFom = () => {
+export const CustomerForm = () => {
     const [state, formAction] = useFormState(saveProduct, initialState);
     const [filesName, setFilesName] = React.useState<any>('');
 

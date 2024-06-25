@@ -1,7 +1,7 @@
 
 import React from "react";
 import {Modal, ModalContent, ModalHeader, ModalBody, Button} from "@nextui-org/react";
-import {getCatalog} from "@/services/catalog";
+import {getCustomers} from "@/services/catalog";
 import {AiFillDatabase} from "react-icons/ai";
 import {IoIosStar} from "react-icons/io";
 import {FaChartSimple} from "react-icons/fa6";
@@ -9,14 +9,12 @@ import { ImMagicWand } from "react-icons/im";
 import {ButtonGroup} from "@nextui-org/button";
 import { CiCirclePlus } from "react-icons/ci";
 import {ProductFom} from "@/app/home/catalog/ProductFom";
-import CatalogTable from "@/app/home/catalog/CatalogTable";
 import CatalogCharts from "@/app/home/catalog/CatalogChatrs";
 import {ChartFom} from "@/app/home/catalog/ChartFom";
-import { FaLongArrowAltLeft } from "react-icons/fa";
-import {Textarea} from "@nextui-org/input";
 import { FaRegCommentDots } from "react-icons/fa";
 import {Divider} from "@nextui-org/divider";
 import { IoMdArrowBack } from "react-icons/io";
+import CustomerTable from "@/app/home/customers/CustomerTable";
 
 export default async function Materials({searchParams}: any ) {
 
@@ -25,48 +23,22 @@ export default async function Materials({searchParams}: any ) {
     const product = searchParams.product;
     console.log(product)
 
-    const data = (await getCatalog()).map((item) => {
+    const data = (await getCustomers()).map((item) => {
         return {
             checkbox: <input type="checkbox"/>,
-            ...item,
-            tools: <div className={'relative'}>
-                <a href={`/home/catalog?product=${item.id}`}><ImMagicWand/></a>
-                {
-                    product == item.id && <div className={'absolute border-primary border-1 w-[540px] h-25 right-0 p-3  bg-slate-950 z-10'}>
-                    <p className={'flex gap-2'}><a href={`/home/catalog`}><IoMdArrowBack/></a>You can ask anything like, "add more emojis", or "change the color"</p>
-                  <div className={'flex m-1 mt-4 gap-3'}>
-                    <FaRegCommentDots/>
-                    <input placeholder={'Ask the AI anything'} className={'w-full'}/>
-                  </div>
-                  <Divider orientation={'horizontal'} />
-                    <p className={'my-2'}>Suggestions</p>
-                  <ul className={'flex flex-col gap-2'}>
-                      <li>Fix Grammar</li>
-                      <li>Improve writing</li>
-                      <li>Make it punchier</li>
-                        <li>Condense</li>
-                    <li>Mix it up</li>
-                    <li>Improve structure & spacing</li>
-                  </ul>
-                </div>}
-            </div>
+            ...item
         }
     })
     const filters=[
         {
             name: 'Data',
             icon: <AiFillDatabase/>,
-            url: '/home/catalog'
-        },
-        {
-            name: 'Popular',
-            icon: <IoIosStar/>,
-            url: '/home/catalog?action=popular'
+            url: '/home/customers'
         },
         {
             name: 'Charts & Insights',
             icon: <FaChartSimple/>,
-            url: '/home/catalog?action=charts'
+            url: '/home/customers?action=charts'
         },
     ]
     const onSave = (data: any) => {
@@ -130,8 +102,7 @@ export default async function Materials({searchParams}: any ) {
                     { action === 'charts' && <a href={'/home/catalog?action=new_chart'}>Add New Chart</a>}
                 </Button>
             </div>
-            { action === undefined && <CatalogTable data={data}/>}
-            { action === 'popular' && <CatalogTable data={data}/>}
+            { action === undefined && <CustomerTable data={data}/>}
             { action === 'charts' && <CatalogCharts/>}
         </main>
     )
