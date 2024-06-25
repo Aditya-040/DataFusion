@@ -1,20 +1,13 @@
 'use client'
-import { useState } from 'react';
-import { useRouter } from 'next/router';
 import styles from './login.module.css';
+import {useFormState} from "react-dom";
+import {authenticate} from "@/actions/account";
 
 export default function Login() {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    // const router = useRouter();
-
-    const handleLogin = async (e) => {
-        e.preventDefault();
-        // Implement your login logic here. This example assumes a successful login.
-        console.log('Logging in with:', email, password);
-        // Redirect to the dashboard page after a successful login
-        // router.push('/dashboard');
+    const initialState = {
+        message : '',
     };
+    const [state, formAction] = useFormState(authenticate, initialState);
 
     return (
         <div className={styles.container}>
@@ -23,15 +16,14 @@ export default function Login() {
             </div>
             <div className={styles.formWrapper}>
                 <h1 className={styles.header}>Login</h1>
-                <form onSubmit={handleLogin} className={styles.form}>
+                <form action={formAction} className={styles.form}>
                     <div className={styles.inputGroup}>
                         <label htmlFor="email" className={styles.inputLabel}>Email:</label>
                         <input
                             type="email"
                             id="email"
                             className={styles.inputField}
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
+                            name={'email'}
                             required
                         />
                     </div>
@@ -41,12 +33,18 @@ export default function Login() {
                             type="password"
                             id="password"
                             className={styles.inputField}
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
+                            name={'password'}
                             required
                         />
                     </div>
                     <button type="submit" className={styles.button}>Login</button>
+                    <p className={styles.error}>{state.message}</p>
+
+                    <p className={'mt-5'}>
+                        Don't have an account? <a
+                        className={'text-blue-500'}
+                        href="/signup">Sign up</a>
+                    </p>
                 </form>
             </div>
         </div>
