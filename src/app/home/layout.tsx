@@ -16,15 +16,17 @@ export default function RootLayout({
     children: React.ReactNode
 }) {
     return (
-        <html lang="en" className='dark'>
+        <html >
             <body >
                 <Providers>
+                    <main className="dark text-foreground bg-background">
                     <Header/>
                     <div className="flex h-screen">
                         <Aside />
                         {children}
                         <Chatbot />
                     </div>
+                    </main>
                 </Providers>
             </body>
         </html>
