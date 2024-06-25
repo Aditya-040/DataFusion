@@ -15,6 +15,7 @@ import { FaRegCommentDots } from "react-icons/fa";
 import {Divider} from "@nextui-org/divider";
 import { IoMdArrowBack } from "react-icons/io";
 import CustomerTable from "@/app/home/customers/CustomerTable";
+import CustomersCharts from "@/app/home/customers/CustomersCharts";
 
 export default async function Materials({searchParams}: any ) {
 
@@ -103,7 +104,7 @@ export default async function Materials({searchParams}: any ) {
                 </Button>
             </div>
             { action === undefined && <CustomerTable data={data}/>}
-            { action === 'charts' && <CatalogCharts/>}
+            { action === 'charts' && <CustomersCharts/>}
         </main>
     )
 }
