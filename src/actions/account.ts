@@ -10,7 +10,7 @@ type LoginResponse = {
 }
 const login = async (email: string, password: string) => {
     try {
-        const response = await axiosInterceptorInstance.post( '/api/login', {email,password})
+        const response = await axiosInterceptorInstance.post( '/login', {email,password})
         return response
     } catch (e) {
         if (e.message) {
@@ -45,11 +45,15 @@ export async function createUser(
 ) {
     const schema = z.object({
         email: z.string().email({ message: "Invalid email"}),
-        password: z.string().min(8, { message: "Password must be at least 8 characters long"})
+        password: z.string().min(8, { message: "Password must be at least 8 characters long"}),
+        confirmPassword: z.string().min(8, { message: "Password must be at least 8 characters long"}),
+        name: z.string().min(3, { message: "Name must be at least 3 characters long"})
     });
     const parse = schema.safeParse({
         email: formData.get("email"),
-        password: formData.get("password")
+        password: formData.get("password"),
+        confirmPassword: formData.get("confirmPassword"),
+        name: formData.get("name"),
     });
 
     if (!parse.success) {
@@ -58,26 +62,19 @@ export async function createUser(
 
     const data = parse.data;
     try {
-        const response = await fetch(process.env.NEXT_PUBLIC_BACKEND + '/register', {
-            method: 'POST',
-            body: JSON.stringify(
-                {
-                    email: data.email,
-                    username: data.email,
-                    password: data.password
-                }
-            ),
-            headers: {
-                'Content-Type': 'application/json'
-            },
+        const response = await axiosInterceptorInstance.post( '/register', {
+            email: data.email,
+            username: data.email,
+            password: data.password,
+            name: data.name
         })
-        const json = await response.json()
-        if (json.error) {
-            return { message: json.error }
+        const messages = response?.data?.messages;
+        if (messages) {
+            return {message: Object.entries(messages).map(([key, value]) => `${key}: ${value}`).join(', ')}
         }
     } catch (e) {
         console.log(e)
-        return { message: 'failed to create user try with another email'}
+        return { message: 'failed to create user try later'}
     }
     redirect("/login");
 }

@@ -1,22 +1,14 @@
 'use client'
-import { useState } from 'react';
-import { useRouter } from 'next/router';
 import styles from './signup.module.css';
+import {useFormState} from "react-dom";
+import {createUser} from "@/actions/account";
 
 export default function Signup() {
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    // const router = useRouter();
 
-    const handleSignup = async (e) => {
-        e.preventDefault();
-        // Implement your signup logic here. This example assumes a successful signup.
-        console.log('Signing up with:', name, email, password, confirmPassword);
-        // Redirect to the dashboard page after a successful signup
-        // router.push('/dashboard');
+    const initialState = {
+        message : '',
     };
+    const [state, formAction] = useFormState(createUser, initialState);
 
     return (
         <div className={styles.container}>
@@ -25,15 +17,14 @@ export default function Signup() {
             </div>
             <div className={styles.formWrapper}>
                 <h1 className={styles.header}>Sign Up</h1>
-                <form onSubmit={handleSignup} className={styles.form}>
+                <form action={formAction} className={styles.form}>
                     <div className={styles.inputGroup}>
                         <label htmlFor="name" className={styles.inputLabel}>Name:</label>
                         <input
                             type="text"
                             id="name"
                             className={styles.inputField}
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
+                            name={'name'}
                             required
                         />
                     </div>
@@ -43,8 +34,7 @@ export default function Signup() {
                             type="email"
                             id="email"
                             className={styles.inputField}
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
+                            name={'email'}
                             required
                         />
                     </div>
@@ -54,8 +44,7 @@ export default function Signup() {
                             type="password"
                             id="password"
                             className={styles.inputField}
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
+                            name={'password'}
                             required
                         />
                     </div>
@@ -65,12 +54,12 @@ export default function Signup() {
                             type="password"
                             id="confirmPassword"
                             className={styles.inputField}
-                            value={confirmPassword}
-                            onChange={(e) => setConfirmPassword(e.target.value)}
+                            name={'confirmPassword'}
                             required
                         />
                     </div>
                     <button type="submit" className={styles.button}>Sign Up</button>
+                    <p className={''}>{state.message}</p>
                 </form>
             </div>
         </div>
