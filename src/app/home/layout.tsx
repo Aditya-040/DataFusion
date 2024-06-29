@@ -17,7 +17,7 @@ export default function RootLayout({
 }) {
     return (
         <html >
-            <body >
+            <body className="dark text-foreground bg-background" >
                 <Providers>
                     <main className="dark text-foreground bg-background">
                     <Header/>
