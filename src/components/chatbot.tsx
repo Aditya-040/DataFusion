@@ -10,6 +10,7 @@ import { IoIosVolumeHigh } from "react-icons/io";
 import { FaRegCopy } from "react-icons/fa";
 import { FaRegCircleStop } from "react-icons/fa6";
 import { RiRobot3Fill } from "react-icons/ri";
+import Speaker from "@/components/speaker";
 export default function Chatbot() {
     const [userInput, setUserInput] = useState("");
     const [chatHistory, setChatHistory] = useState([]);
@@ -74,7 +75,7 @@ export default function Chatbot() {
                                         }
                                     >{message.message}</p>
                                     <FaRegCopy className={'grow-0'}/>
-                                    <IoIosVolumeHigh className={'grow-0'}/>
+                                    <Speaker text={message.message} child={<IoIosVolumeHigh className={'grow-0'}/>}/>
                                 </div>
                             </div>
 
