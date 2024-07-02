@@ -1,5 +1,6 @@
 
 import axios from 'axios';
+import {cookies} from "next/headers";
 
 const axiosInterceptorInstance = axios.create({
     baseURL: 'http://34.227.92.112:8000/api',
@@ -9,6 +10,7 @@ const axiosInterceptorInstance = axios.create({
 axiosInterceptorInstance.interceptors.request.use(
     (config) => {
         // Handle request headers here
+        const token = cookies().token;
         console.table(
             config.data
         )

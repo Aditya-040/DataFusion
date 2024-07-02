@@ -3,10 +3,10 @@ import { useEffect, createRef } from 'react'
 import * as d3 from 'd3'
 export default function CustomersCharts() {
     return (
-        <div className="grid ">
+        <div className="flex gap-2">
 
-            <BarChart width={300} height={300}/>
-            <GlobeChart width={800} height={800}/>
+            <BarChart width={500} height={500}/>
+            <GlobeChart width={500} height={500}/>
         </div>
     )
 
@@ -134,7 +134,6 @@ const GlobeChart = ({ width = 300, height= 300 }) => {
     }
 
     return <div className={'border-1 border-primary p-3'}>
-        s
         <svg width={width} height={height} ref={ref}  />
     </div>
 }

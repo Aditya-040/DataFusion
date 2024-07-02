@@ -1,6 +1,8 @@
 'use server'
 import {z} from "zod";
 import {redirect} from "next/navigation";
+import axiosInterceptorInstance from "@/axiosInterceptorInstance";
+
 
 export const getCatalog  = async () => {
     //mock data
