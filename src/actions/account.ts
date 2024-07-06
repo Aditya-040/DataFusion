@@ -6,9 +6,7 @@ import {cookies} from "next/headers";
 import axiosInterceptorInstance from "@/axiosInterceptorInstance";
 import axios from "axios";
 
-type LoginResponse = {
-    token: string;
-}
+
 type RegisterInfo = {
     messages: string;
 }
@@ -23,17 +21,20 @@ type SuccessResponse = {
         "msg": string
     }
 }
+
+
 // merge SuccessResponse and RegisterInfo
 type RegisterResponse = SuccessResponse & RegisterInfo
-const login = async (email: string, password: string) => {
+
+const login: (email: string, password: string) => Promise<axios.AxiosResponse<SuccessResponse>> = async (email: string, password: string) => {
     try {
-        const response = await axiosInterceptorInstance.post( '/login', {email,password})
+        const response: axios.AxiosResponse<SuccessResponse> = await axiosInterceptorInstance.post( '/login', {email,password})
         return response
     } catch (e) {
         if (e.message) {
-            return { message: e.message }
+            return { message: e.message, status: 500 }
         }
-        return { status: 500 }
+        return { status: 500 , message: 'failed to login'}
     }
 }
 
@@ -47,8 +48,9 @@ export const  signInApp = async (email: string, password: string) => {
     const credentials = parsedCredentials.data;
     let response = await login(credentials.email, credentials.password);
     if (response.status === 200) {
-        const json: LoginResponse = await response.data
-        return { message: 'success', token: json.token };
+        const json = await response.data
+        cookies().set('token', json.token.access)
+        return { message: 'success', token: json.token.access };
     }
     return { message: 'Invalid credentials', token: null };
 

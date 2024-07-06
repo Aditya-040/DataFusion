@@ -10,10 +10,13 @@ const axiosInterceptorInstance = axios.create({
 axiosInterceptorInstance.interceptors.request.use(
     (config) => {
         // Handle request headers here
-        const token = cookies().token;
+        const token = cookies().get('token').value;
         console.table(
             config.data
         )
+        if (token && config.url !== '/login' && config.url !== '/register') {
+            config.headers['Authorization'] = `Bearer ${token}`;
+        }
         return config;
     },
     (error) => {
@@ -24,21 +27,21 @@ axiosInterceptorInstance.interceptors.request.use(
 
 axiosInterceptorInstance.interceptors.response.use(
     (response) => {
-        console.table({
+        /*console.table({
             data: response.data,
             url: response.config.url,
             status: response.status,
-        });
+        });*/
         return response;
     },
     (error) => {
-        console.table(
+/*        console.table(
             {
                 url: error.config.url,
                 status: error.response.status,
                 data: error.response.data,
             }
-        )
+        )*/
         return Promise.reject(error);
     }
 );

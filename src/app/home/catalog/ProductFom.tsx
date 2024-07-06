@@ -11,7 +11,6 @@ const initialState: any = {
 
 export const ProductFom = () => {
     const [state, formAction] = useFormState(saveProduct, initialState);
-    const [filesName, setFilesName] = React.useState<any>('');
 
     return <form className={'flex flex-col gap-4'} action={formAction}>
         <label className="">Title *</label>
@@ -25,10 +24,11 @@ export const ProductFom = () => {
         <label className="">Price</label>
         <input
             required
-            type="text"
+            type="number"
             className="form-input mt-1 block w-full"
             name={'price'}
             placeholder="Product price*"
+
         />
         <label className="">Description</label>
         <textarea
@@ -36,6 +36,9 @@ export const ProductFom = () => {
             className="form-input mt-1 block w-full"
             name={'description'}
         />
+        {
+            state.message && <p className={'text-red-500'}>{state.message}</p>
+        }
         <SaveButton/>
     </form>
 }

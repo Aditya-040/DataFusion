@@ -2,20 +2,61 @@
 import {z} from "zod";
 import {redirect} from "next/navigation";
 import axiosInterceptorInstance from "@/axiosInterceptorInstance";
+import axios from "axios";
 
 
-export const getCatalog  = async () => {
-    //mock data
-    return [
-        { id: 1, name: 'Product 1', price: 100, description: 'Description 1' },
-        { id: 2, name: 'Product 2', price: 200, description: 'Description 2' },
-        { id: 3, name: 'Product 3', price: 300, description: 'Description 3' },
-        { id: 4, name: 'Product 4', price: 400, description: 'Description 4' },
-        { id: 5, name: 'Product 5', price: 500, description: 'Description 5' }
-    ];
+
+export type Product = {
+    id: number,
+    title: string,
+    price: string,
+    category: number,
+    extra_data: {
+        image: string,
+        price: number,
+        title: string,
+        catalog: string,
+        discount: number,
+        features: string,
+        quantity: number,
+        category_id: number,
+        description: string,
+        final_price: number
+    }
 }
 
 
+
+export type GenericResponse<T> = {
+    "next_page": number | null,
+    "pre_page": number | null,
+    "total_pages": number,
+    "count": number,
+    "status": {
+        "code": number,
+        "msg": string
+    },
+    "message": string,
+    "data": T[]
+}
+export const getCatalog: () => Promise<GenericResponse<Product>>  = async () => {
+    try {
+        const response = await axiosInterceptorInstance.get('/product/get')
+        return response.data;
+    } catch (e) {
+        console.log(e)
+        return { message: 'failed to get product' }
+    }
+}
+
+
+interface ProductData {
+    "title": string,
+    "price": number,
+    "quantity": number,
+    "description": string,
+    "category_id": number
+}
 
 export const  saveProduct = async (
     prevState: string | undefined,
@@ -23,9 +64,10 @@ export const  saveProduct = async (
 ) => {
 
     const schema = z.object({
-        file: z
-            .any()
+        title: z.string().min(3),
+        description: z.string().min(3)
     });
+
 
     const parse = schema.safeParse({
         title: formData.get("title"),
@@ -37,10 +79,18 @@ export const  saveProduct = async (
         return { message: parse.error.errors[0].message };
     }
     try {
-        return { message: 'success' }
+        const postData : ProductData = {
+            title: formData.get("title") as string,
+            price: Number(formData.get("price")),
+            quantity: 100,
+            description: formData.get("description") as string,
+            category_id: 1
+        }
+        const response = await axiosInterceptorInstance.post('/product/create', {products: [postData]})
+        return response.data
     } catch (e) {
         console.log(e)
-        return { message: 'failed to upload file'}
+        return { message: 'failed to create product' }
     }
     redirect('/home/catalog')
 
