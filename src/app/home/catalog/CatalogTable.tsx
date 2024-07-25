@@ -8,15 +8,22 @@ import Loader from "@/components/loader";
 import UpdateDialog from "@/app/home/catalog/updateDialog";
 
 export default async function CatalogTable({action}: any) {
-    const catalog: GenericResponse<Product>  = await getCatalog()
-    const data = catalog.data.map((item) => {
-        return {
-            checkbox: <input type="checkbox"/>,
-            ...item,
-            //tools: <UpdateDialog product={item}/>
-        }
-    })
-    console.log(catalog)
+  
+    try{
+        const catalog: GenericResponse<Product>  = await getCatalog()
+        const data = catalog.data.map((item) => {
+            return {
+                checkbox: <input type="checkbox"/>,
+                ...item,
+                tools: <UpdateDialog product={item}/>
+            }
+        })
+        console.log(catalog)
+    }catch (e) {
+        console.log(e)
+        return <div>error</div>
+    }
+    
     return (
         <Table
             columns={[
