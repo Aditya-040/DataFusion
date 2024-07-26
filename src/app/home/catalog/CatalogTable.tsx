@@ -24,15 +24,15 @@ export default async function CatalogTable({action}: any) {
         return <div>error</div>
     }
     
+    const data: any[] = []; // Declare the 'data' variable as an empty array of type 'any[]'
     return (
         <Table
             columns={[
-                {title: '', key: 'checkbox', width: 'w-[50p]'},
-                {title: 'Name', key: 'title', width: 'w-[50p]'},
-                {title: 'Price', key: 'price', width: 'w-[25p]'},
-                {title: 'Description', key: 'category', width: 'w-[25p]'},
-                {title: '', key: 'tools', width: 'w-[25p]'},
+                { title: '', key: 'checkbox', width: 'w-[50p]' },
+                { title: 'Name', key: 'title', width: 'w-[50p]' },
+                { title: 'Price', key: 'price', width: 'w-[25p]' },
+                { title: 'Description', key: 'category', width: 'w-[25p]' },
+                { title: '', key: 'tools', width: 'w-[25p]' },
             ]}
-            data={data}
-        />)
+            data={data} title={""}        />)
 }
