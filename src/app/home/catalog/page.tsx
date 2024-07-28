@@ -11,11 +11,26 @@ import CatalogTable from "@/app/home/catalog/CatalogTable";
 import CatalogCharts from "@/app/home/catalog/CatalogChatrs";
 import {ChartFom} from "@/app/home/catalog/ChartFom";
 
+// import {useAuthState} from 'react-firebase-hooks/auth'
+// import {auth} from '@/app/firebase/config'
+// import { useRouter } from 'next/navigation';
+// import { signOut } from 'firebase/auth';
 export default async function Materials({searchParams}: any ) {
 
     const action = searchParams.action;
     const product = searchParams.product;
 
+
+    // used to provide session
+    // const [user] = useAuthState(auth);
+    // const router = useRouter()
+    // const userSession = sessionStorage.getItem('user');
+  
+    // console.log({user})
+   
+    // if (!user && !userSession){
+    //   router.push('/sign-up')
+    // }
     const filters=[
         {
             name: 'Data',
@@ -36,12 +51,22 @@ export default async function Materials({searchParams}: any ) {
     const onSave = (data: any) => {
         console.log(data)
     }
+
     return (
         <main className="w-full px-9">
             <Modal
                 isOpen={action === 'new'}
                 closeButton={<a href={'/home/catalog'}>X</a>}
             >
+
+                {/* for logout */}
+                      {/* <button onClick={() => {
+        signOut(auth)
+        sessionStorage.removeItem('user')
+        }}>
+        Log out
+      </button> */}
+
                 <ModalContent>
                     <ModalHeader className="flex flex-col gap-1">
                         Create a new product

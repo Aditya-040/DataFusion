@@ -34,7 +34,7 @@ export default function Table({columns, data}: TableProps) {
                         </tr>
                     </thead>
                     <tbody >
-                        {data.map((row, index) => (
+                        {data?.map((row, index) => (
                             <tr key={index} className="h-9">
 
                                 {row.rowUrl ? <a href={row.rowUrl} className={'w-full contents'}>
