@@ -4,7 +4,17 @@ import {redirect} from "next/navigation";
 import axiosInterceptorInstance from "@/axiosInterceptorInstance";
 import axios from "axios";
 
-
+export const getCatalog  = async () => {
+    //mock data
+    return [
+        { id: 1, name: 'Apple iPhone 14', price: 799, description: 'The latest iPhone with A15 Bionic chip, 5G capability, and improved battery life.' },
+        { id: 2, name: 'Samsung Galaxy S21', price: 699, description: 'High-end Android smartphone with a powerful Exynos 2100 processor and versatile camera setup.' },
+        { id: 3, name: 'Sony WH-1000XM4', price: 348, description: 'Industry-leading noise canceling over-ear headphones with premium sound quality and long battery life.' },
+        { id: 4, name: 'Dell XPS 13', price: 999, description: 'Compact and powerful laptop with a stunning 13.4-inch display and Intel Core i7 processor.' },
+        { id: 5, name: 'Apple Watch Series 7', price: 399, description: 'The latest Apple Watch with a larger display, faster charging, and advanced health tracking features.' }
+    ];
+    
+}
 
 export type Product = {
     id: number,
@@ -39,15 +49,15 @@ export type GenericResponse<T> = {
     "message": string,
     "data": T[]
 }
-export const getCatalog: () => Promise<GenericResponse<Product>>  = async () => {
-    try {
-        const response = await axiosInterceptorInstance.get('/product/get')
-        return response.data;
-    } catch (e) {
-        console.log(e)
-        return { message: 'failed to get product' }
-    }
-}
+// export const getCatalog: () => Promise<GenericResponse<Product>>  = async () => {
+//     try {
+//         const response = await axiosInterceptorInstance.get('/product/get')
+//         return response.data;
+//     } catch (e) {
+//         console.log(e)
+//         return { message: 'failed to get product' }
+//     }
+// }
 
 
 interface ProductData {
@@ -89,7 +99,7 @@ export const  saveProduct = async (
         const response = await axiosInterceptorInstance.post('/product/create', {products: [postData]})
         return response.data
     } catch (e) {
-        console.log(e)
+        console.log(e);
         return { message: 'failed to create product' }
     }
     redirect('/home/catalog')

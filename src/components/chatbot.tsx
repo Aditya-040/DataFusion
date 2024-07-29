@@ -10,7 +10,15 @@ import { IoIosVolumeHigh } from "react-icons/io";
 import { FaRegCopy } from "react-icons/fa";
 import { FaRegCircleStop } from "react-icons/fa6";
 import { RiRobot3Fill } from "react-icons/ri";
+import { IoCubeOutline } from "react-icons/io5";
+import { AIchatbotbutton } from "@/components/AIchatbotbutton";
+import { AiOutlineSound } from "react-icons/ai";
+import { AiFillSound } from "react-icons/ai";
+import { CiDatabase } from "react-icons/ci";
+
+import { IoAnalyticsSharp } from "react-icons/io5";
 import Speaker from "@/components/speaker";
+import { IoMdCube } from "react-icons/io";
 export default function Chatbot() {
     const [userInput, setUserInput] = useState("");
     const [chatHistory, setChatHistory] = useState([]);
@@ -32,12 +40,23 @@ export default function Chatbot() {
     };
 
     if (!isOpen) {
-        return             <div className="absolute inset-x-0 bottom-0 flex items-center justify-center">
+        return          <>   <div className=" space-x-2  border-slate-800 rounded bg-slate-600 absolute inset-x-0 bottom-0 flex items-center justify-center">
+            <button><IoCubeOutline/></button>
+            <button >
+            <AiOutlineSound />
+            </button>
             <Button
                 startContent={<FaMagic/>}
                 onClick={handleOpenModal}
                 color={'primary'}>AI Chat</Button>
+                <button><IoAnalyticsSharp /></button>
+               <button> <CiDatabase /></button>
+
+               
         </div>
+        
+        </>
+        
     }
     return (
         <Modal

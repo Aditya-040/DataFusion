@@ -7,7 +7,7 @@ import { FaVolumeUp } from "react-icons/fa";
 
 export default function CatalogCharts() {
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid gap:  grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
             <PopularProduct data={{ name: 'Product 1', description: 'Product 1 description', image: '/gloves.jpeg' }} />
             <DistributionHistogram />
             <PieChart />
@@ -53,16 +53,17 @@ const LineChart = ({ width = 300, height = 300 }) => {
             .attr('d', line)
     }
 
-    return <div className="border border-primary p-3">
+    return <div className="border border-slate-700 rounded p-3 px-2">
         <svg ref={ref} className="w-full h-64" />
     </div>
 }
 
-const PieChart = ({ width = 300, height = 300 }) => {
+const PieChart = ({ width = 200, height = 200 }) => {
     const ref = createRef()
 
     useEffect(() => {
         draw()
+       
     })
 
     const draw = () => {
@@ -71,7 +72,7 @@ const PieChart = ({ width = 300, height = 300 }) => {
         svg.selectAll('*').remove()
 
         const width = svg.node().parentNode.clientWidth,
-            height = 300,
+            height = 250,
             radius = Math.min(width, height) / 2;
 
         const g = svg.append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
@@ -89,7 +90,7 @@ const PieChart = ({ width = 300, height = 300 }) => {
             .attr("d", arc);
     }
 
-    return <div className="border border-primary p-3">
+    return <div className="border border-slate-700 rounded p-3">
         <svg ref={ref} className="w-full h-64" />
     </div>
 }
@@ -131,13 +132,13 @@ const BarChart = ({ width = 300, height = 300 }) => {
             .attr('fill', 'orange')
     }
 
-    return <div className="border border-primary p-3">
+    return <div className="border border-slate-700 rounded p-3">
         <svg ref={ref} className="w-full h-64" />
     </div>
 }
 
 const PopularProduct = ({ data }) => {
-    return <div className="border border-primary p-3">
+    return <div className="border border-slate-700 p-3 rounded">
         <h3 className="flex justify-between">Your most Popular Item <FaVolumeUp /></h3>
         <p className="text-sm text-slate-400">Discover your best-selling product. Identify the top-performing item in your inventory helping you focus on what customers love most.</p>
         <div className="flex flex-col items-center justify-center my-3">
@@ -146,9 +147,10 @@ const PopularProduct = ({ data }) => {
                 <h5 className="text-center">{data.name}</h5>
                 <p className="text-center">{data.description}</p>
             </div>
-            <div className="text-center flex border border-gray-50 p-2">
+            <div className="text-center flex border rounded-sm border-slate-700 p-2 rounded">
                 <FaRegLightbulb />
-                <p>Prompt: Why is it so popular?</p>
+                &nbsp;
+                <p>Prompt:  Why is it so popular?</p>
             </div>
         </div>
     </div>
@@ -191,7 +193,7 @@ const DistributionHistogram = ({ width = 300, height = 300 }) => {
             .attr('fill', 'orange')
     }
 
-    return <div className="border border-primary p-3">
+    return <div className="border border-slate-700 rounded p-3">
         <h3 className="flex justify-between">Price Distribution Histogram <FaVolumeUp /></h3>
         <p className="text-sm text-slate-400">Closely examine the price distribution of your products. This chart offers a visual breakdown of product prices, helping you identify pricing trends, popular price ranges, and potential pricing strategies.</p>
         <svg ref={ref} className="w-full h-64" />

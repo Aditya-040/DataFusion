@@ -24,9 +24,9 @@ export interface TableRow {
 
 export default function Table({columns, data}: TableProps) {
     return (
-            <div className="w-full">
-                <table className="w-full px-4 border-primary border-1 mt-4">
-                    <thead className={'border-primary border-1'}>
+            <div className="w-full ">
+                <table className="w-full px-4 border-primary rounded border-1 mt-4">
+                    <thead className={'border-primary rounded border-1'}>
                         <tr className=" bg-darkViolet h-8">
                             {columns.map((column,index) => (
                                 <th key={index} className={`${column.width} text-left px-8`}>{column.title}</th>
@@ -34,7 +34,7 @@ export default function Table({columns, data}: TableProps) {
                         </tr>
                     </thead>
                     <tbody >
-                        {data?.map((row, index) => (
+                        {data.map((row, index) => (
                             <tr key={index} className="h-9">
 
                                 {row.rowUrl ? <a href={row.rowUrl} className={'w-full contents'}>

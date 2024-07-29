@@ -6,9 +6,9 @@
 }
 
 .dark {
-    --bg-color: #333;
+    --bg-color: #000000;
     --text-color: #fff;
-    --order-item-bg: #444;
+    --order-item-bg: #211f1f;
     --order-item-border: #555;
 }
 
