@@ -15,12 +15,17 @@ export default function RootLayout({
 }: {
     children: React.ReactNode
 }) {
+    const user = {
+        name: 'John Doe',
+        email: 'john.doe@example.com',
+        avatar: '/path/to/avatar.jpg'
+    };
     return (
         <html >
             <body className="dark text-foreground bg-background" >
                 <Providers>
                     <main className="dark text-foreground bg-background">
-                    <Header/>
+                    <Header user={user} />
                     <div className="flex h-screen">
                         <Aside />
                         {children}
