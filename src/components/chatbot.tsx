@@ -45,7 +45,7 @@ export default function Chatbot() {
             <button >
             <AiOutlineSound />
             </button>
-            <Button
+            <Button className="bg-primary"
                 startContent={<FaMagic/>}
                 onClick={handleOpenModal}
                 color={'primary'}>AI Chat</Button>
@@ -66,7 +66,7 @@ export default function Chatbot() {
 
         >
             <ModalContent>
-                <ModalHeader><h2 className="text-2xl font-bold mb-4">Welcome to Data Fusion chatbot</h2></ModalHeader>
+                <ModalHeader><h2 className="text-2xl font-bold mb-4 text-center ">Welcome to Data Fusion chatbot</h2></ModalHeader>
                 <div className={'flex flex-col  h-full '}>
 
 
