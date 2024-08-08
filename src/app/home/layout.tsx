@@ -16,8 +16,8 @@ export default function RootLayout({
     children: React.ReactNode
 }) {
     const user = {
-        name: 'John Doe',
-        email: 'john.doe@example.com',
+        name: 'mamoon',
+        email: 'mamoom23@gmail.com',
         avatar: '/path/to/avatar.jpg'
     };
     return (

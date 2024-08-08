@@ -19,7 +19,7 @@ import {Textarea} from "@nextui-org/input";
 import { FaRegCommentDots } from "react-icons/fa";
 import {Divider} from "@nextui-org/divider";
 import { IoMdArrowBack } from "react-icons/io";
-
+import { TiDocumentText } from "react-icons/ti";
 export default async function Materials({searchParams}: any ) {
 
 
@@ -76,6 +76,7 @@ export default async function Materials({searchParams}: any ) {
     }
     return (
         <main className="w-full px-9">
+           
             <Modal
                 isOpen={action === 'new'}
                 closeButton={<a href={'/home/catalog'}>X</a>}
@@ -88,7 +89,9 @@ export default async function Materials({searchParams}: any ) {
                         <ProductFom/>
                     </ModalBody>
                 </ModalContent>
+               
             </Modal>
+            
             <Modal
                 isOpen={action === 'new_chart'}
                 size={'lg'}
@@ -122,7 +125,16 @@ export default async function Materials({searchParams}: any ) {
 
                         ))
                     }
+                  
                 </ButtonGroup>
+                <Button
+                    startContent={<TiDocumentText />}
+                    color="primary"
+                    variant={'bordered'}
+                    className={'flex'}>
+                    {  <a href={'http://127.0.0.1:5000/'}>Analyst AI Model</a>}
+                   
+                </Button>
                 <Button
                     startContent={<CiCirclePlus/>}
                     color="primary"

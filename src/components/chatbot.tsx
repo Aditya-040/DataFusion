@@ -66,7 +66,11 @@ export default function Chatbot() {
 
         >
             <ModalContent>
-                <ModalHeader><h2 className="text-2xl font-bold mb-4 text-center ">Welcome to Data Fusion chatbot</h2></ModalHeader>
+            <ModalHeader className="flex justify-center">
+  <h2 className="text-2xl font-bold mb-4 text-center">
+    Welcome to Data Fusion chatbot
+  </h2>
+</ModalHeader>
                 <div className={'flex flex-col  h-full '}>
 
 
